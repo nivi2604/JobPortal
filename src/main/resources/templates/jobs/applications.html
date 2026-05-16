@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Manage Applications')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    
+    <main class="container animate-fade-in">
+        <a th:href="@{/employer/dashboard}" style="display:inline-block; margin-bottom:1rem; font-size:0.9rem;">← Back to Dashboard</a>
+        <h1 style="margin-bottom: 2rem;">Applicants for <span style="color:var(--primary-color);" th:text="${job.title}">Job</span></h1>
+        
+        <div class="card">
+            <div th:if="${applications.empty}" style="padding: 2rem; text-align:center; color:var(--text-secondary);">
+                No one has applied for this position yet.
+            </div>
+            
+            <div th:unless="${applications.empty}" class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Applicant Name</th>
+                            <th>Email</th>
+                            <th>Current Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="app : ${applications}">
+                            <td style="font-weight:600;" th:text="${app.user.name}">Name</td>
+                            <td th:text="${app.user.email}">Email</td>
+                            <td>
+                                <span th:class="'badge badge-' + ${#strings.toLowerCase(app.status)}" th:text="${app.status}">APPLIED</span>
+                            </td>
+                            <td>
+                                <form th:action="@{/employer/application/{appId}/status(appId=${app.id})}" method="post" style="display:flex; gap:0.5rem; align-items:center;">
+                                    <input type="hidden" name="jobId" th:value="${job.id}"/>
+                                    <select name="status" class="form-control" style="padding:0.3rem 0.5rem; display:inline-block; width:150px;">
+                                        <option value="APPLIED" th:selected="${app.status.name() == 'APPLIED'}">APPLIED</option>
+                                        <option value="SHORTLISTED" th:selected="${app.status.name() == 'SHORTLISTED'}">SHORTLISTED</option>
+                                        <option value="REJECTED" th:selected="${app.status.name() == 'REJECTED'}">REJECTED</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size:0.9rem;">Update</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

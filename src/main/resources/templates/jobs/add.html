@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Post a Job')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    
+    <main class="container animate-fade-in" style="display:flex; justify-content:center; align-items:center; min-height: 70vh;">
+        <div class="card" style="width: 100%; max-width: 600px;">
+            <h2 style="margin-bottom: 2rem;">Post a New <span style="color:var(--primary-color);">Job</span></h2>
+
+            <form th:action="@{/employer/job/add}" th:object="${job}" method="post">
+                <div class="form-group">
+                    <label class="form-label">Job Title</label>
+                    <input type="text" th:field="*{title}" class="form-control" placeholder="e.g. Senior Developer">
+                    <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Location</label>
+                    <input type="text" th:field="*{location}" class="form-control" placeholder="e.g. Remote, NY">
+                    <span th:if="${#fields.hasErrors('location')}" th:errors="*{location}" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Salary ($ / year)</label>
+                    <input type="number" th:field="*{salary}" class="form-control" placeholder="e.g. 100000">
+                    <span th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Job Description</label>
+                    <textarea th:field="*{description}" class="form-control" rows="6" placeholder="Describe the role..."></textarea>
+                    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></span>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; margin-top:2rem;">
+                    <a th:href="@{/employer/dashboard}" class="btn btn-outline">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Publish Job</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Admin Dashboard')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    
+    <main class="container animate-fade-in">
+        <h1 style="margin-bottom: 2rem;">Admin <span style="color:var(--primary-color);">Dashboard</span></h1>
+        
+        <div style="display:flex; gap:2rem; margin-bottom: 3rem;">
+            <div class="card" style="flex:1; text-align:center;">
+                <h3 style="color:var(--text-secondary); margin-bottom: 0.5rem;">Total Users</h3>
+                <p style="font-size: 2.5rem; font-weight:700; color:var(--text-primary);" th:text="${userCount}">0</p>
+                <a th:href="@{/admin/users}" class="btn btn-outline" style="margin-top:1rem;">Manage Users</a>
+            </div>
+            <div class="card" style="flex:1; text-align:center;">
+                <h3 style="color:var(--text-secondary); margin-bottom: 0.5rem;">Total Jobs</h3>
+                <p style="font-size: 2.5rem; font-weight:700; color:var(--text-primary);" th:text="${jobCount}">0</p>
+                <a th:href="@{/admin/jobs}" class="btn btn-outline" style="margin-top:1rem;">Manage Jobs</a>
+            </div>
+            <div class="card" style="flex:1; text-align:center;">
+                <h3 style="color:var(--text-secondary); margin-bottom: 0.5rem;">Applications</h3>
+                <p style="font-size: 2.5rem; font-weight:700; color:var(--text-primary);" th:text="${applicationCount}">0</p>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

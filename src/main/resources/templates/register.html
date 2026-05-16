@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Register')}"></head>
+<body>
+    <div class="bg-pattern"></div>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    
+    <main class="container animate-fade-up" style="display:flex; justify-content:center; align-items:center; min-height: 80vh; margin-top: 2rem; margin-bottom: 4rem;">
+        <div class="card" style="width: 100%; max-width: 460px; padding: 2.5rem 2.5rem; text-align: left;">
+            <div style="text-align:center; margin-bottom: 2rem;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width: 32px; color: var(--text-primary); margin-bottom: 1rem;">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="8.5" cy="7" r="4"></circle>
+                    <line x1="20" y1="8" x2="20" y2="14"></line>
+                    <line x1="23" y1="11" x2="17" y2="11"></line>
+                </svg>
+                <h2 style="font-size: 1.5rem; letter-spacing: -0.02em;">Create an account</h2>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 0.25rem;">Enter your details to get started</p>
+            </div>
+            
+            <div th:if="${error != null}" class="alert alert-danger" th:text="${error}" style="margin-bottom: 1.5rem; font-size: 0.85rem; padding: 0.75rem;"></div>
+
+            <form th:action="@{/register}" th:object="${user}" method="post">
+                <div class="form-group mb-3">
+                    <label class="form-label" style="font-size: 0.85rem; font-weight: 600;">Full Name</label>
+                    <input type="text" th:field="*{name}" class="form-control" placeholder="John Doe" style="padding: 0.7rem 1rem;">
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group mb-3">
+                    <label class="form-label" style="font-size: 0.85rem; font-weight: 600;">Email Address</label>
+                    <input type="email" th:field="*{email}" class="form-control" placeholder="name@company.com" style="padding: 0.7rem 1rem;">
+                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group mb-3">
+                     <label class="form-label" style="font-size: 0.85rem; font-weight: 600;">Date of Birth</label>
+                     <input type="date" th:field="*{dob}" class="form-control" style="padding: 0.7rem 1rem;">
+                </div>
+                
+                <div class="form-group mb-3">
+                    <label class="form-label" style="font-size: 0.85rem; font-weight: 600;">Account Type</label>
+                    <!-- Removing the dark inline generic style -->
+                    <select th:field="*{role}" class="form-control" style="padding: 0.7rem 1rem; cursor: pointer; appearance: none;">
+                        <option value="STUDENT">Student / Job Seeker</option>
+                        <option value="EMPLOYER">Employer / Recruiter</option>
+                    </select>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label class="form-label" style="font-size: 0.85rem; font-weight: 600;">Password</label>
+                    <input type="password" th:field="*{password}" class="form-control" placeholder="••••••••" style="padding: 0.7rem 1rem;">
+                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem; font-size: 0.95rem; justify-content: center;">Create Account</button>
+            </form>
+            <div style="text-align:center; margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+                By creating an account, you agree to our <a href="#" style="color:var(--text-primary); text-decoration:underline;">Terms</a>.
+            </div>
+            <div style="text-align:center; margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-secondary); border-top: 1px solid var(--border-light); padding-top: 1.5rem;">
+                Already have an account? <a th:href="@{/login}" style="font-weight: 600; color: var(--text-primary);">Log in</a>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

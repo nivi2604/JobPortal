@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Home')}"></head>
+<body>
+    <div class="bg-pattern"></div>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    
+    <main class="container animate-fade-up" style="display:flex; align-items:center; justify-content:center; min-height: 80vh; flex-direction: column; text-align: center; max-width: 900px;">
+        <div style="margin-bottom: 3rem;">
+            <!-- Subtle pill badge -->
+            <div style="display:inline-block; padding: 0.4rem 1rem; background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 999px; font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 1.5rem; box-shadow: var(--shadow-sm);">
+                ✨ The standard for modern job boards
+            </div>
+            <h1 style="margin-bottom: 1.5rem;">
+                Land your <span style="color: var(--brand-color);">Dream Role</span> <br>
+                faster than ever before.
+            </h1>
+            <p style="font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+                Connect with the world's most innovative companies. A highly curated platform designed for top-tier professionals and employers.
+            </p>
+            <div style="display:flex; gap: 1rem; justify-content: center;">
+                <a th:href="@{/jobs}" class="btn btn-primary" style="font-size: 1.1rem; padding: 0.8rem 2rem; border-radius: 999px;">
+                    Explore Opportunities
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px; margin-left: 0.5rem;"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+                <a th:href="@{/register}" class="btn btn-outline" style="font-size: 1.1rem; padding: 0.8rem 2rem; border-radius: 999px; background: var(--surface-color);">
+                    Start Hiring
+                </a>
+            </div>
+        </div>
+        
+        <div style="width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; text-align: left; margin-top: 2rem;">
+            <div class="card card-hover" style="padding: 2rem; border-radius: var(--radius-lg);">
+                <div style="background:#eff6ff; width: 40px; height: 40px; border-radius: 10px; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem; color: var(--brand-color);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                </div>
+                <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Real-time Tracking</h3>
+                <p style="font-size: 0.95rem;">Monitor application lifecycle instantly with live feedback loops.</p>
+            </div>
+            <div class="card card-hover" style="padding: 2rem; border-radius: var(--radius-lg);">
+                <div style="background:#fef3c7; width: 40px; height: 40px; border-radius: 10px; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem; color: var(--warning-color);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                </div>
+                <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Fast Integrations</h3>
+                <p style="font-size: 0.95rem;">Seamless connections for employers connecting ATS workflows.</p>
+            </div>
+            <div class="card card-hover" style="padding: 2rem; border-radius: var(--radius-lg);">
+                <div style="background:#d1fae5; width: 40px; height: 40px; border-radius: 10px; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem; color: var(--success-color);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Verified Profiles</h3>
+                <p style="font-size: 0.95rem;">Trust is built-in. Every candidate and employer is strictly vetted.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

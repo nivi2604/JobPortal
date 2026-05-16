@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Manage Jobs')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    
+    <main class="container animate-fade-in">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 2rem;">
+            <div style="display:flex; align-items:center;">
+                <a th:href="@{/admin/dashboard}" style="display:inline-block; margin-right:1.5rem; font-size:1.2rem; text-decoration:none;">←</a>
+                <h1 style="margin:0;">Manage <span style="color:var(--primary-color);">Jobs</span></h1>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Employer</th>
+                            <th>Location</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="job : ${jobs}">
+                            <td th:text="${job.id}">ID</td>
+                            <td style="font-weight:600;" th:text="${job.title}">Title</td>
+                            <td th:text="${job.employer.name}">Employer</td>
+                            <td th:text="${job.location}">Location</td>
+                            <td>
+                                <a th:href="@{/jobs/detail/{id}(id=${job.id})}" class="btn btn-outline" style="padding: 0.3rem 0.8rem; font-size:0.9rem;">View</a>
+                                <a th:href="@{/admin/job/delete/{id}(id=${job.id})}" class="btn btn-danger" style="padding: 0.3rem 0.8rem; font-size:0.9rem;" onclick="return confirm('Delete this job entirely?')">Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

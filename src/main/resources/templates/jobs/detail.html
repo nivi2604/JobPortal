@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head(${job.title})}"></head>
+<body>
+    <div class="bg-pattern" style="opacity: 0.1"></div>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    
+    <main class="container animate-fade-up" style="max-width: 800px; margin-top: 2rem;">
+        
+        <a th:href="@{/jobs}" style="display:inline-flex; align-items:center; margin-bottom:2rem; font-size:0.95rem; font-weight: 500; color: var(--text-secondary);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px; margin-right: 0.5rem;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Back to Opportunities
+        </a>
+
+        <div th:if="${param.applied}" class="alert alert-success" style="margin-bottom: 2rem;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px; margin-right: 0.5rem;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Application submitted successfully. The employer has been notified.
+        </div>
+        
+        <div class="card" style="padding: 3.5rem; position: relative; overflow: hidden;">
+            <div style="position: absolute; top:0; left:0; width: 100%; height: 6px; background: var(--text-primary);"></div>
+            
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 3rem;">
+                <div>
+                    <h1 style="font-size: 2.25rem; letter-spacing: -0.03em; margin-bottom: 0.5rem;" th:text="${job.title}">Job Title</h1>
+                    <div style="display:flex; align-items:center; gap: 1rem; color: var(--text-secondary); font-size: 1.05rem;">
+                        <span style="font-weight:600; color:var(--text-primary);" th:text="${job.employer.name}">Company</span>
+                        <span style="display:inline-block; width:4px; height:4px; border-radius:50%; background:var(--text-tertiary);"></span>
+                        <span style="display:flex; align-items:center;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px; margin-right:0.25rem;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            <span th:text="${job.location}">Location</span>
+                        </span>
+                    </div>
+                </div>
+                
+                <div sec:authorize="hasRole('STUDENT')" style="margin-left: 2rem;">
+                    <div th:if="${hasApplied}" class="badge badge-green" style="padding: 0.75rem 1.25rem; font-size: 0.9rem; font-weight: 600;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px; margin-right:0.5rem;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Applied
+                    </div>
+                    <form th:unless="${hasApplied}" th:action="@{/jobs/apply/{id}(id=${job.id})}" method="post">
+                        <button type="submit" class="btn btn-primary" style="padding: 0.75rem 2rem; font-size: 1.05rem;">
+                            Apply Now
+                        </button>
+                    </form>
+                </div>
+                
+                <div sec:authorize="!isAuthenticated()" style="margin-left: 2rem;">
+                    <a th:href="@{/login}" class="btn btn-outline" style="padding: 0.75rem 2rem; font-size: 1.05rem;">Sign in to Apply</a>
+                </div>
+            </div>
+
+            <div style="display:flex; gap:1.5rem; margin-bottom: 3rem;">
+                <div style="flex:1; border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 1.5rem; display:flex; align-items:center; gap: 1rem; background: #fafafa;">
+                    <div style="width: 48px; height: 48px; border-radius: var(--radius-md); background: #fef3c7; color: var(--warning-color); display:flex; align-items:center; justify-content:center;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:24px;"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom:0.25rem;">Compensation</div>
+                        <div style="font-weight:600; font-size: 1.1rem; color: var(--text-primary);">$<span th:text="${job.salary}"></span> / yr</div>
+                    </div>
+                </div>
+                
+                <div style="flex:1; border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 1.5rem; display:flex; align-items:center; gap: 1rem; background: #fafafa;">
+                    <div style="width: 48px; height: 48px; border-radius: var(--radius-md); background: #eff6ff; color: var(--brand-color); display:flex; align-items:center; justify-content:center;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:24px;"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom:0.25rem;">Employment Type</div>
+                        <div style="font-weight:600; font-size: 1.1rem; color: var(--text-primary);">Full-time</div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 style="margin-bottom: 1.25rem; font-size: 1.25rem;">Role overview</h3>
+                <div style="line-height: 1.7; color: var(--text-secondary); font-size: 1.05rem;" th:utext="${#strings.replace(job.description, '&#10;', '<br>')}">
+                    Description goes here...
+                </div>
+            </div>
+            
+            <div style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border-light); text-align: center;">
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Sound like a good fit?</p>
+                <div sec:authorize="hasRole('STUDENT')">
+                    <form th:unless="${hasApplied}" th:action="@{/jobs/apply/{id}(id=${job.id})}" method="post">
+                        <button type="submit" class="btn btn-primary" style="padding: 0.75rem 3rem;">Apply Now</button>
+                    </form>
+                    <div th:if="${hasApplied}" class="badge badge-green">Currently Applied</div>
+                </div>
+                <div sec:authorize="!isAuthenticated()">
+                    <a th:href="@{/login}" class="btn btn-primary" style="padding: 0.75rem 3rem;">Create Account to Apply</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

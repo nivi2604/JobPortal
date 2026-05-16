@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title} + ' - Job Portal'">Job Portal</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar" th:fragment="navbar">
+    <a th:href="@{/}" class="nav-brand">
+        <!-- Minimal SVG Logo -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+        </svg>
+        JPM
+    </a>
+    <div class="nav-links">
+        <a th:href="@{/jobs}" class="nav-item">Browse Jobs</a>
+        
+        <div sec:authorize="!isAuthenticated()" style="display:flex; gap:1rem; margin-left: 1rem;">
+            <a th:href="@{/login}" class="btn btn-outline" style="padding: 0.5rem 1rem;">Log In</a>
+            <a th:href="@{/register}" class="btn btn-primary" style="padding: 0.5rem 1rem;">Sign Up</a>
+        </div>
+        
+        <div sec:authorize="isAuthenticated()" style="display:flex; align-items:center; gap:1rem; margin-left: 1rem;">
+            <a th:href="@{/dashboard}" class="nav-item">Dashboard</a>
+            <form th:action="@{/logout}" method="post" style="display:inline;">
+                <button type="submit" class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">Logout</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<footer th:fragment="footer">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; border-bottom: none; margin: 0 auto;">
+        <div style="display:flex; align-items:center; gap: 0.5rem; color: var(--text-primary); font-weight: 600;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px; height:16px;">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            </svg>
+            JPM Inc.
+        </div>
+        <div>
+            <p>&copy; 2026 Job Portal Management Platform.</p>
+        </div>
+    </div>
+    <div th:replace="~{fragments/chatbot :: chatbot}"></div>
+</footer>
+
+</body>
+</html>
